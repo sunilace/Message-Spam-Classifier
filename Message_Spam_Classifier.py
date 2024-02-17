@@ -1,11 +1,11 @@
 import streamlit as st
 import pickle as pkl
 import nltk
-from nltk.corpus import stopwords
 import string
 from nltk.stem.porter import PorterStemmer
 
 
+stopwords = pkl.load(open('stopwords.pkl', 'rb'))
 nltk.download('punkt')
 def transform(text):
     text = text.lower()
@@ -20,7 +20,7 @@ def transform(text):
 
     y = []
     for i in text:
-        if i not in stopwords.words('english') and i not in string.punctuation:
+        if i not in stopwords and i not in string.punctuation:
             y.append(i)
     text = y[:]
 
@@ -49,3 +49,4 @@ if st.button('Classify'):
         st.header("It is Not Spam.")
     else:
         st.header("It is Spam.")
+
